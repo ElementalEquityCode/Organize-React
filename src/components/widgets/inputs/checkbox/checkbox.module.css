@@ -1,0 +1,54 @@
+.checkboxContainer {
+    height: 35px;
+    width: 35px;
+    border-radius: 17.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease-out;
+    outline: none;
+    user-select: none;
+}
+
+.checkbox {
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-areas: "a";
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    transition: background-color 0.3s ease-out;
+    background-color: rgb(117, 130, 235);
+}
+
+.innerUncompletedCircle {
+    grid-area: a;
+    background-color: white;
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    transform: scale(0.85, 0.85);
+    transition: transform 0.15s ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.completed {
+    transform: scale(0, 0);
+}
+
+.checkmark {
+    grid-area: a;
+    color: white;
+    transform: scale(0, 0);
+    transition: transform 0.15s ease-out;
+    pointer-events: none;
+}
+
+.visible {
+    transform: scale(1, 1);
+}
