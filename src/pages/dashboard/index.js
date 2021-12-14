@@ -164,6 +164,29 @@ class DashboardContainer extends React.Component {
     });
   };
 
+  handleDeleteToDoItem = (toDoItem) => {
+    const { currentlyViewedList } = this.state;
+    const listToSearch = !toDoItem.isCompleted
+      ? currentlyViewedList.toDoItems
+      : currentlyViewedList.completedToDoItems;
+
+    for (
+      let toDoItemIndex = 0;
+      toDoItemIndex < listToSearch.length;
+      toDoItemIndex++
+    ) {
+      if (toDoItem.path === listToSearch[toDoItemIndex].path) {
+        toDoItem.deleteFromDatabase();
+        listToSearch.splice(toDoItemIndex, 1);
+        break;
+      }
+    }
+
+    this.setState({
+      currentlyViewedList: { ...currentlyViewedList },
+    });
+  };
+
   handleCompletionStatusChanged = (toDoItem) => {
     setTimeout(() => {
       const { currentlyViewedList } = this.state;
@@ -359,6 +382,7 @@ class DashboardContainer extends React.Component {
               addToDoItem: this.handleAddToDoItem,
               addToDoItemList: this.handleAddToDoItemList,
               didClickCheckmark: this.handleCompletionStatusChanged,
+              didDeleteToDoItem: this.handleDeleteToDoItem,
             }}
           >
             <DashboardNavbar onOpenSidebar={this.onOpenSidebar} />

@@ -1,5 +1,4 @@
 import { useEffect, useState, useContext } from "react";
-import NextLink from "next/link";
 import numeral from "numeral";
 import PropTypes from "prop-types";
 import {
@@ -17,7 +16,7 @@ import {
   Typography,
 } from "@mui/material";
 import Checkbox from "../widgets/inputs/checkbox/checkbox";
-import { ArrowRight as ArrowRightIcon } from "../../icons/arrow-right";
+import { Trash as TrashIcon } from "../../icons/trash";
 import { PencilAlt as PencilAltIcon } from "../../icons/pencil-alt";
 import { Scrollbar } from "../scrollbar";
 import ToDoItemsListContext from "../../contexts/to-do-item-lists-context";
@@ -34,7 +33,7 @@ const ToDoItemsListTable = (props) => {
   } = props;
 
   const [selectedCustomers, setSelectedCustomers] = useState([]);
-  const action = useContext(ToDoItemsListContext).didClickCheckmark;
+  const { didClickCheckmark, didDeleteToDoItem } = useContext(ToDoItemsListContext);
 
   // Reset selected customers when customers change
   useEffect(
@@ -82,15 +81,12 @@ const ToDoItemsListTable = (props) => {
           <TableBody>
             {toDoItems.map((toDoItem) => {
               return (
-                <TableRow
-                  hover
-                  key={toDoItem.path.id}
-                >
+                <TableRow hover key={toDoItem.path.id}>
                   <TableCell padding="checkbox">
-                    <Checkbox 
+                    <Checkbox
                       onCheckboxClicked={(bool) => {
                         toDoItem.setCompletionStatus(bool);
-                        action(toDoItem);
+                        didClickCheckmark(toDoItem);
                       }}
                       isChecked={toDoItem.isCompleted}
                     />
@@ -102,13 +98,7 @@ const ToDoItemsListTable = (props) => {
                         display: "flex",
                       }}
                     >
-                      <Box sx={{ ml: 1 }}>
-                        <NextLink href="/dashboard/customers/1" passHref>
-                          <Link color="inherit" variant="subtitle2">
-                            {toDoItem.name}
-                          </Link>
-                        </NextLink>
-                      </Box>
+                      <Box sx={{ ml: 1 }}>{toDoItem.name}</Box>
                     </Box>
                   </TableCell>
                   <TableCell>
@@ -119,16 +109,16 @@ const ToDoItemsListTable = (props) => {
                       : ""}
                   </TableCell>
                   <TableCell align="right">
-                    <NextLink href="/dashboard/customers/1/edit" passHref>
-                      <IconButton component="a">
-                        <PencilAltIcon fontSize="small" />
-                      </IconButton>
-                    </NextLink>
-                    <NextLink href="/dashboard/customers/1" passHref>
-                      <IconButton component="a">
-                        <ArrowRightIcon fontSize="small" />
-                      </IconButton>
-                    </NextLink>
+                    <IconButton component="a">
+                      <PencilAltIcon fontSize="small" />
+                    </IconButton>
+                    <IconButton component="a"
+                      onClick={() => {
+                        didDeleteToDoItem(toDoItem);
+                      }}
+                    >
+                      <TrashIcon fontSize="small" />
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               );
