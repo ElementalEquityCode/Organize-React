@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import NextLink from "next/link";
 import PropTypes from "prop-types";
 import {
   Box,
@@ -74,9 +75,11 @@ const ToDoItemsListTable = (props) => {
                       : ""}
                   </TableCell>
                   <TableCell align="right">
-                    <IconButton component="a">
-                      <PencilAltIcon fontSize="small" />
-                    </IconButton>
+                    <NextLink href={`/dashboard/edit/${toDoItem.path.id}`}>
+                      <IconButton component="a">
+                        <PencilAltIcon fontSize="small" />
+                      </IconButton>
+                    </NextLink>
                     <IconButton
                       component="a"
                       onClick={() => {

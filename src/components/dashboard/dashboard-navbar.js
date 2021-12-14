@@ -216,21 +216,24 @@ const AccountButton = () => {
 };
 
 export const DashboardNavbar = (props) => {
+  let styles = null;
+
+  if (!props.fullSizeAlways) {
+    styles = {
+      left: {
+        lg: 280,
+      },
+      width: {
+        lg: "calc(100% - 280px)",
+      },
+    };
+  }
+
   const { onOpenSidebar, ...other } = props;
 
   return (
     <>
-      <DashboardNavbarRoot
-        sx={{
-          left: {
-            lg: 280,
-          },
-          width: {
-            lg: "calc(100% - 280px)",
-          },
-        }}
-        {...other}
-      >
+      <DashboardNavbarRoot sx={styles} {...other}>
         <Toolbar
           disableGutters
           sx={{
@@ -248,12 +251,12 @@ export const DashboardNavbar = (props) => {
               },
             }}
           >
-            <MenuIcon fontSize="small" />
+            {props.fullSizeAlways ? null : <MenuIcon fontSize="small" />}
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
-          <ContentSearchButton />
-          <RenameListButton />
-          <DeleteToDoItemListButton />
+          {props.fullSizeAlways ? null : <ContentSearchButton />}
+          {props.fullSizeAlways ? null : <RenameListButton />}
+          {props.fullSizeAlways ? null : <DeleteToDoItemListButton />}
           <AccountButton />
         </Toolbar>
       </DashboardNavbarRoot>
@@ -263,4 +266,5 @@ export const DashboardNavbar = (props) => {
 
 DashboardNavbar.propTypes = {
   onOpenSidebar: PropTypes.func,
+  fullSizeAlways: PropTypes.bool,
 };

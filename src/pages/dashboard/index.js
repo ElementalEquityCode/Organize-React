@@ -1,7 +1,5 @@
 import React, {
   useState,
-  useEffect,
-  useCallback,
   useRef,
   useContext,
 } from "react";
@@ -31,11 +29,8 @@ import {
   orderBy,
 } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
-import { useMounted } from "../../hooks/use-mounted";
-import { Download as DownloadIcon } from "../../icons/download";
 import { Plus as PlusIcon } from "../../icons/plus";
 import { Search as SearchIcon } from "../../icons/search";
-import { Upload as UploadIcon } from "../../icons/upload";
 import { AddToDoItemModal } from "../../components/widgets/modals/add-to-do-item-modal/add-to-do-item-modal";
 import { DashboardNavbar } from "../../components/dashboard/dashboard-navbar";
 import { DashboardSidebar } from "../../components/dashboard/dashboard-sidebar";
