@@ -4,7 +4,7 @@ const ToDoItemsListContext = React.createContext({
   toDoItemList: [],
   deleteToDoItemList: () => {},
   renameToDoItemList: () => {},
-  addToDoItem: () => {}
+  addToDoItem: () => {},
 });
 
 export default ToDoItemsListContext;

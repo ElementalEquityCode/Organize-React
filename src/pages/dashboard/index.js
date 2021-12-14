@@ -20,7 +20,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { customerApi } from "../../__fake-api__/customer-api";
 import ToDoItemsListTable from "../../components/dashboard/to-do-items-list-table";
 import { getAuth } from "firebase/auth";
 import { updateDoc, doc, setDoc } from "firebase/firestore";
@@ -458,8 +457,8 @@ const applySort = (toDoItems, sort) => {
   return toDoItems;
 };
 
-const applyPagination = (customers, page, rowsPerPage) =>
-  customers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+const applyPagination = (toDoItems, page, rowsPerPage) =>
+  toDoItems.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
 const Dashboard = (props) => {
   const { list } = props;
@@ -629,7 +628,7 @@ const Dashboard = (props) => {
             </Box>
             {list !== null ? (
               <ToDoItemsListTable
-                toDoItems={sortedToDoItems}
+                toDoItems={paginatedToDoItems}
                 toDoItemsCount={filteredToDoItems.length}
                 onPageChange={handlePageChange}
                 onRowsPerPageChange={handleRowsPerPageChange}

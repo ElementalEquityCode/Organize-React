@@ -1,16 +1,9 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { v4 as uuid } from "uuid";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, setDoc, doc, serverTimestamp } from "firebase/firestore";
-import {
-  Box,
-  Button,
-  FormHelperText,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import FirebaseApp from "../../Firebase";
 
 const validator = require("email-validator");
@@ -19,8 +12,6 @@ const firestore = getFirestore(FirebaseApp);
 
 const FirebaseRegister = (props) => {
   const { notificationListener } = props;
-
-  const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [isEmailInErrorState, setEmailErrorState] = useState(false);

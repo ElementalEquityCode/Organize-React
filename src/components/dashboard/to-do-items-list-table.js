@@ -1,19 +1,15 @@
 import { useEffect, useState, useContext } from "react";
-import numeral from "numeral";
 import PropTypes from "prop-types";
 import {
-  Avatar,
   Box,
   Button,
   IconButton,
-  Link,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TablePagination,
   TableRow,
-  Typography,
 } from "@mui/material";
 import Checkbox from "../widgets/inputs/checkbox/checkbox";
 import { Trash as TrashIcon } from "../../icons/trash";
@@ -32,39 +28,8 @@ const ToDoItemsListTable = (props) => {
     ...other
   } = props;
 
-  const [selectedCustomers, setSelectedCustomers] = useState([]);
-  const { didClickCheckmark, didDeleteToDoItem } = useContext(ToDoItemsListContext);
-
-  // Reset selected customers when customers change
-  useEffect(
-    () => {
-      if (selectedCustomers.length) {
-        setSelectedCustomers([]);
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [toDoItems]
-  );
-
-  const handleSelectAllCustomers = (event) => {
-    setSelectedCustomers(
-      event.target.checked ? toDoItems.map((customer) => toDoItems.id) : []
-    );
-  };
-
-  const handleSelectOneCustomer = (event, customerId) => {
-    if (!selectedCustomers.includes(customerId)) {
-      setSelectedCustomers((prevSelected) => [...prevSelected, customerId]);
-    } else {
-      setSelectedCustomers((prevSelected) =>
-        prevSelected.filter((id) => id !== customerId)
-      );
-    }
-  };
-
-  const selectedSomeCustomers =
-    selectedCustomers.length > 0 && selectedCustomers.length < toDoItems.length;
-  const selectedAllCustomers = selectedCustomers.length === toDoItems.length;
+  const { didClickCheckmark, didDeleteToDoItem } =
+    useContext(ToDoItemsListContext);
 
   return (
     <div {...other}>
@@ -112,7 +77,8 @@ const ToDoItemsListTable = (props) => {
                     <IconButton component="a">
                       <PencilAltIcon fontSize="small" />
                     </IconButton>
-                    <IconButton component="a"
+                    <IconButton
+                      component="a"
                       onClick={() => {
                         didDeleteToDoItem(toDoItem);
                       }}

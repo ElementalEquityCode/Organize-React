@@ -1,6 +1,5 @@
 import { getAuth } from "firebase/auth";
-import NextLink from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import PropTypes from "prop-types";
 import {
   Avatar,
@@ -19,8 +18,8 @@ import FirebaseApp from "../../Firebase";
 const auth = getAuth(FirebaseApp);
 
 export const AccountPopover = (props) => {
-  const { anchorEl, onClose, open, ...other } = props;
   const router = useRouter();
+  const { anchorEl, onClose, open, ...other } = props;
 
   const { user } = props;
 

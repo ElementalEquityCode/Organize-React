@@ -1,17 +1,15 @@
-import React, { useEffect, useMemo, useRef, useState, useContext } from "react";
+import React, { useEffect, useMemo, useState, useContext } from "react";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import {
   Box,
   Button,
-  Chip,
   Divider,
   Drawer,
   Typography,
   useMediaQuery,
 } from "@mui/material";
 import { FolderOpen as FolderIcon } from "../../icons/folder-open";
-import { Logo } from "../logo";
 import { Scrollbar } from "../scrollbar";
 import { DashboardSidebarSection } from "./dashboard-sidebar-section";
 import ToDoItemList from "../../Objects/ToDoItemList";
@@ -152,7 +150,12 @@ export const DashboardSidebar = (props) => {
             </Button>
           </Box>
         </Box>
-        {isModalOpen ? <AddToDoItemListModal onCancel={handleCloseModal} onAdd={handleAddList} /> : null}
+        {isModalOpen ? (
+          <AddToDoItemListModal
+            onCancel={handleCloseModal}
+            onAdd={handleAddList}
+          />
+        ) : null}
       </Scrollbar>
     </>
   );

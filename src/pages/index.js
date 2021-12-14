@@ -9,6 +9,7 @@ import {
   Typography,
   Stack,
 } from "@mui/material";
+import NextLink from "next/link";
 import NotificationBanner from "../components/notification-banner/notification-banner";
 import FirebaseLogin from "../components/authentication/firebase-login";
 
@@ -104,16 +105,16 @@ const Login = () => {
                 alignItems: "center",
               }}
             >
-              <Link href="/register" color="textSecondary" variant="body2">
-                Create new account
-              </Link>
-              <Link
-                href="/reset-password"
-                color="textSecondary"
-                variant="body2"
-              >
-                Forgot Password?
-              </Link>
+              <NextLink href="/register" passHref>
+                <Link color="textSecondary" variant="body2">
+                  Create new account
+                </Link>
+              </NextLink>
+              <NextLink href="/reset-password" passHref>
+                <Link color="textSecondary" variant="body2">
+                  Forgot Password?
+                </Link>
+              </NextLink>
             </Stack>
           </Card>
         </Container>

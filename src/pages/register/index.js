@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
-import { Box, Card, Container, Divider, Typography } from "@mui/material";
+import { Box, Card, Container, Typography } from "@mui/material";
 import NotificationBanner from "../../components/notification-banner/notification-banner";
 import FirebaseRegister from "../../components/authentication/firebase-register";
 

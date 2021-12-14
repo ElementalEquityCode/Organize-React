@@ -6,7 +6,6 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import {
   AppBar,
   Avatar,
-  Badge,
   Box,
   ButtonBase,
   IconButton,
@@ -28,20 +27,6 @@ import ToDoItemListContext from "../../contexts/to-do-item-lists-context";
 
 const auth = getAuth(FirebaseApp);
 const storage = getStorage(FirebaseApp);
-
-const removePadding = () => {
-  document.body.style.overflow = "inherit";
-  document.body.style.paddingRight = "0";
-  document.getElementsByTagName("header")[0].style.paddingRight = "0";
-};
-
-const setPadding = () => {
-  document.body.style.overflow = "hidden";
-  document.body.style.paddingRight =
-    document.body.offsetWidth - document.body.clientWidth;
-  document.getElementsByTagName("header")[0].style.paddingRight =
-    document.body.offsetWidth - document.body.clientWidth;
-};
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -92,12 +77,10 @@ const RenameListButton = () => {
   const [isModalOpen, setModalOpenState] = useState(false);
 
   const handleCloseModal = () => {
-    removePadding();
     setModalOpenState(false);
   };
 
   const handleRenameToDoItemList = (withName) => {
-    removePadding();
     setModalOpenState(false);
     action(withName, router.query.id);
   };
@@ -107,7 +90,6 @@ const RenameListButton = () => {
       <Tooltip title="Rename List">
         <IconButton
           onClick={() => {
-            setPadding();
             setModalOpenState(true);
           }}
           sx={{ ml: 1 }}
@@ -134,12 +116,10 @@ const DeleteToDoItemListButton = () => {
   const [isModalOpen, setModalOpenState] = useState(false);
 
   const handleCloseModal = () => {
-    removePadding();
     setModalOpenState(false);
   };
 
   const handleDeleteToDoItemList = () => {
-    removePadding();
     setModalOpenState(false);
     action(router.query.id);
   };
@@ -149,7 +129,6 @@ const DeleteToDoItemListButton = () => {
       <Tooltip title="Delete List">
         <IconButton
           onClick={() => {
-            setPadding();
             setModalOpenState(true);
           }}
           ref={anchorRef}

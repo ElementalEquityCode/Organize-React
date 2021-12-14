@@ -1,21 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
-import {
-  Box,
-  Button,
-  Divider,
-  FormHelperText,
-  TextField,
-  Typography,
-} from "@mui/material";
 import { useRouter } from "next/router";
+import PropTypes from "prop-types";
+import { Box, Button, FormHelperText, TextField } from "@mui/material";
 import { AuthContext } from "../../contexts/firebase-auth-context";
 
 const validator = require("email-validator");
 
 const FirebaseLogin = (props) => {
-  const authContext = useContext(AuthContext);
   const router = useRouter();
+  const authContext = useContext(AuthContext);
 
   const { notificationListener } = props;
 

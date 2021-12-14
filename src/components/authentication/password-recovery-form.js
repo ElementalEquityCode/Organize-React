@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useRouter } from 'next/router';
 import PropTypes from "prop-types";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
-import { Box, Button, FormHelperText, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import FirebaseApp from "../../Firebase";
 
 const validator = require("email-validator");
@@ -11,8 +10,6 @@ const auth = getAuth(FirebaseApp);
 const PasswordRecoveryForm = (props) => {
   const { notificationListener } = props;
 
-  const router = useRouter();
-
   const [email, setEmail] = useState("");
   const [isEmailInErrorState, setEmailErrorState] = useState(false);
 
@@ -20,12 +17,15 @@ const PasswordRecoveryForm = (props) => {
     if (validator.validate(email)) {
       sendPasswordResetEmail(auth, email)
         .then(() => {
-          notificationListener({
-            message: `An email was sent to ${email} to reset your password`,
-            type: "success",
-          }, true);
+          notificationListener(
+            {
+              message: `An email was sent to ${email} to reset your password`,
+              type: "success",
+            },
+            true
+          );
           setTimeout(() => {
-            router.push('/');
+            router.push("/");
           }, 5100);
         })
         .catch((error) => {
