@@ -45,7 +45,7 @@ const ToDoItemsListTable = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {toDoItems.map((toDoItem) => {
+            {toDoItems.list.map((toDoItem) => {
               return (
                 <TableRow hover key={toDoItem.path.id}>
                   <TableCell padding="checkbox">
@@ -75,7 +75,9 @@ const ToDoItemsListTable = (props) => {
                       : ""}
                   </TableCell>
                   <TableCell align="right">
-                    <NextLink href={`/dashboard/edit/${toDoItem.path.id}`}>
+                    <NextLink
+                      href={`/dashboard/edit/${toDoItem.path.id}?list_id=${toDoItems.id}`}
+                    >
                       <IconButton component="a">
                         <PencilAltIcon fontSize="small" />
                       </IconButton>

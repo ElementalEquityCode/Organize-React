@@ -1,11 +1,11 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { useRouter } from 'next/router';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import NextLink from "next/link";
 import Head from "next/head";
 import { DashboardNavbar } from "../../../../components/dashboard/dashboard-navbar";
 import { Avatar, Box, Chip, Container, Link, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { CustomerEditForm } from "../../../../components/dashboard/customer/customer-edit-form";
+import { ToDoItemEditForm } from "../../../../components/dashboard/to-do-item/to-do-item-edit-form";
 
 class EditToDoItemLayout extends React.Component {
   constructor() {
@@ -39,7 +39,7 @@ const ToDoItemEdit = () => {
           backgroundColor: "background.default",
           flexGrow: 1,
           py: 8,
-          pt: 16
+          pt: 16,
         }}
       >
         <Container maxWidth="xlg">
@@ -76,12 +76,16 @@ const ToDoItemEdit = () => {
                 }}
               >
                 <Typography variant="subtitle2">To Do Item ID:</Typography>
-                <Chip label={`${router.query.toDoItemID}`} size="small" sx={{ ml: 1 }} />
+                <Chip
+                  label={`${router.query.toDoItemID}`}
+                  size="small"
+                  sx={{ ml: 1 }}
+                />
               </Box>
             </div>
           </Box>
           <Box mt={3}>
-            <CustomerEditForm customer={customer} />
+            <ToDoItemEditForm />
           </Box>
         </Container>
       </Box>

@@ -1,8 +1,4 @@
-import React, {
-  useState,
-  useRef,
-  useContext,
-} from "react";
+import React, { useState, useRef, useContext } from "react";
 import Head from "next/head";
 import Router from "next/router";
 import {
@@ -379,7 +375,6 @@ class DashboardContainer extends React.Component {
               didDeleteToDoItem: this.handleDeleteToDoItem,
             }}
           >
-            <DashboardNavbar onOpenSidebar={this.onOpenSidebar} />
             <Dashboard list={currentlyViewedList} />
             <DashboardSidebar
               open={isSidebarOpen}
@@ -387,6 +382,7 @@ class DashboardContainer extends React.Component {
               email={auth.currentUser?.email}
               toDoItemLists={toDoItemLists}
             />
+            <DashboardNavbar onOpenSidebar={this.onOpenSidebar} />
           </ToDoItemsListContext.Provider>
         </main>
       </>
@@ -623,7 +619,7 @@ const Dashboard = (props) => {
             </Box>
             {list !== null ? (
               <ToDoItemsListTable
-                toDoItems={paginatedToDoItems}
+                toDoItems={{ list: paginatedToDoItems, id: list?.path.id }}
                 toDoItemsCount={filteredToDoItems.length}
                 onPageChange={handlePageChange}
                 onRowsPerPageChange={handleRowsPerPageChange}

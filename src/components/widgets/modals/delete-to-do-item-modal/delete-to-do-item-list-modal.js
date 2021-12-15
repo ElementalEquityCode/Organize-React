@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import {
   Avatar,
@@ -13,29 +13,17 @@ import WarningIcon from "@mui/icons-material/WarningOutlined";
 import styles from "./delete-to-do-item-list-modal.module.css";
 
 export const DeleteToDoItemListModal = (props) => {
-  const deleteToDoItemListModalContainerRef = useRef(null);
   const boxRef = useRef(null);
-  const { onCancel } = props;
-  const { onDelete } = props;
-
-  useEffect(() => {
-    deleteToDoItemListModalContainerRef.current.classList.add(
-      `${styles.visible}`
-    );
-  });
+  const { onCancel, onDelete } = props;
 
   return (
     <div
       onClick={(event) => {
-        if (
-          event.target === deleteToDoItemListModalContainerRef.current ||
-          event.target === boxRef.current
-        ) {
+        if (event.target === boxRef.current) {
           onCancel();
         }
       }}
-      className={styles.hidden}
-      ref={deleteToDoItemListModalContainerRef}
+      className={styles.visible}
     >
       <Box
         ref={boxRef}
@@ -51,7 +39,6 @@ export const DeleteToDoItemListModal = (props) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          zIndex: "1300",
           overflow: "hidden",
         }}
       >

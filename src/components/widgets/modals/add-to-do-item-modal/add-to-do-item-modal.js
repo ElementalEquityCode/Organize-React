@@ -19,28 +19,18 @@ export const AddToDoItemModal = (props) => {
   const [enteredDate, setEnteredDate] = useState("");
   const [isDateInErrorState, setDateErrorState] = useState(false);
 
-  const addToDoItemListModalContainerRef = useRef(null);
   const boxRef = useRef(null);
 
-  const { onCancel } = props;
-  const { onAdd } = props;
-
-  useEffect(() => {
-    addToDoItemListModalContainerRef.current.classList.add(`${styles.visible}`);
-  });
+  const { onCancel, onAdd } = props;
 
   return (
     <div
       onClick={(event) => {
-        if (
-          event.target === addToDoItemListModalContainerRef.current ||
-          event.target === boxRef.current
-        ) {
+        if (event.target === boxRef.current) {
           onCancel();
         }
       }}
-      className={styles.hidden}
-      ref={addToDoItemListModalContainerRef}
+      className={styles.visible}
     >
       <Box
         ref={boxRef}
@@ -56,7 +46,6 @@ export const AddToDoItemModal = (props) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          zIndex: "1300",
           overflow: "hidden",
         }}
       >

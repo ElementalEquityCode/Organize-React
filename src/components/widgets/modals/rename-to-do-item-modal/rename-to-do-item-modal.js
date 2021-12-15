@@ -16,31 +16,18 @@ import styles from "./rename-to-do-item-modal.module.css";
 export const RenameToDoItemListModal = (props) => {
   const [enteredValue, setEnteredValue] = useState("");
 
-  const renameToDoItemListModalContainerRef = useRef(null);
-
   const boxRef = useRef(null);
 
-  const { onCancel } = props;
-  const { onRename } = props;
-
-  useEffect(() => {
-    renameToDoItemListModalContainerRef.current.classList.add(
-      `${styles.visible}`
-    );
-  });
+  const { onCancel, onRename } = props;
 
   return (
     <div
       onClick={(event) => {
-        if (
-          event.target === renameToDoItemListModalContainerRef.current ||
-          event.target === boxRef.current
-        ) {
+        if (event.target === boxRef.current) {
           onCancel();
         }
       }}
-      className={styles.hidden}
-      ref={renameToDoItemListModalContainerRef}
+      className={styles.visible}
     >
       <Box
         ref={boxRef}
@@ -56,7 +43,6 @@ export const RenameToDoItemListModal = (props) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          zIndex: "1300",
           overflow: "hidden",
         }}
       >
