@@ -33,6 +33,13 @@ export const AddToDoItemModal = (props) => {
       className={styles.visible}
     >
       <Box
+        onSubmit={(event) => {
+          event.preventDefault();
+          if (enteredName.trim().length > 0 && !isDateInErrorState) {
+            onAdd(enteredName, enteredDate);
+          }
+        }}
+        component="form"
         ref={boxRef}
         sx={{
           backgroundColor: "background.modal",
@@ -118,6 +125,7 @@ export const AddToDoItemModal = (props) => {
             }}
           >
             <Button
+              type="submit"
               variant="contained"
               onClick={() => {
                 if (enteredName.trim().length > 0 && !isDateInErrorState) {

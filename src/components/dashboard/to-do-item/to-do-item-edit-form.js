@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
-import { getFirestore, getDoc, updateDoc, doc } from "firebase/firestore";
+import {
+  getFirestore,
+  getDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
 import PropTypes from "prop-types";
@@ -26,7 +32,7 @@ const firestore = getFirestore(FirebaseApp);
 
 export const ToDoItemEditForm = (props) => {
   const [itemName, setItemName] = useState("");
-  const [itemDueDate, setItemDueDate] = useState("");
+  const [itemDueDate, setItemDueDate] = useState(null);
   const [itemDueDateErrorState, setItemDueDateErrorState] = useState(false);
 
   const router = useRouter();
@@ -47,7 +53,9 @@ export const ToDoItemEditForm = (props) => {
       )
         .then((data) => {
           setItemName(data.data().name);
-          setItemDueDate(data.data().due_date);
+          if (data.data().due_date) {
+            setItemDueDate(new Date(data.data().due_date.seconds * 1000));
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -58,7 +66,8 @@ export const ToDoItemEditForm = (props) => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    if (itemName.trim().length !== 0) {
+    if (itemName.trim().length !== 0 && !itemDueDateErrorState) {
+      console.log('here');
       updateDoc(
         doc(
           firestore,
@@ -71,6 +80,7 @@ export const ToDoItemEditForm = (props) => {
         ),
         {
           name: itemName,
+          due_date: itemDueDate,
         }
       )
         .then(() => {
@@ -80,6 +90,30 @@ export const ToDoItemEditForm = (props) => {
           console.log(error);
         });
     }
+  };
+
+  const handleDeleteToDoItem = () => {
+    deleteDoc(
+      doc(
+        firestore,
+        "users",
+        auth.currentUser.uid,
+        "to_do_items",
+        router.query.list_id,
+        "items",
+        router.query.toDoItemID
+      ),
+      {
+        name: itemName,
+        due_date: itemDueDate,
+      }
+    )
+      .then(() => {
+        router.push("/dashboard");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -159,7 +193,9 @@ export const ToDoItemEditForm = (props) => {
               Cancel
             </Button>
           </NextLink>
-          <Button color="error">Delete To Do Item</Button>
+          <Button color="error" onClick={handleDeleteToDoItem}>
+            Delete To Do Item
+          </Button>
         </CardActions>
       </Card>
     </form>

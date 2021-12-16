@@ -14,6 +14,7 @@ const neutral = {
 
 const background = {
   default: '#F9FAFC',
+  modal: 'rgba(0, 0, 0, 0.5)',
   paper: '#FFFFFF'
 };
 

@@ -28,6 +28,13 @@ export const AddToDoItemListModal = (props) => {
       className={styles.visible}
     >
       <Box
+        onSubmit={(event) => {
+          event.preventDefault();
+          if (enteredName.trim().length > 0) {
+            onAdd(enteredName);
+          }
+        }}
+        component="form"
         ref={boxRef}
         sx={{
           backgroundColor: "background.modal",
@@ -114,4 +121,5 @@ export const AddToDoItemListModal = (props) => {
 AddToDoItemListModal.propTypes = {
   onCancel: PropTypes.func,
   onAdd: PropTypes.func,
+  show: PropTypes.bool,
 };

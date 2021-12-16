@@ -30,6 +30,13 @@ export const RenameToDoItemListModal = (props) => {
       className={styles.visible}
     >
       <Box
+        onSubmit={(event) => {
+          event.preventDefault();
+          if (enteredValue.trim().length > 0) {
+            onRename(enteredValue);
+          }
+        }}
+        component="form"
         ref={boxRef}
         sx={{
           backgroundColor: "background.modal",

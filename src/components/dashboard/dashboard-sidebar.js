@@ -16,6 +16,14 @@ import ToDoItemList from "../../Objects/ToDoItemList";
 import { AddToDoItemListModal } from "../widgets/modals/add-to-do-item-list-modal/add-to-do-item-list-modal";
 import ToDoItemsListContext from "../../contexts/to-do-item-lists-context";
 
+const disableScrolling = () => {
+  document.body.style.overflowY = 'hidden';
+};
+
+const enableScrolling = () => {
+  document.body.style.overflowY = '';
+};
+
 const getSections = (toDoItemLists) => {
   let sections = [];
 
@@ -60,11 +68,13 @@ export const DashboardSidebar = (props) => {
 
   const handleCloseModal = () => {
     setModalOpenState(false);
+    enableScrolling();
   };
 
   const handleAddList = (listName) => {
     action(listName);
     setModalOpenState(false);
+    enableScrolling();
   };
 
   const content = (
@@ -144,6 +154,7 @@ export const DashboardSidebar = (props) => {
               variant="contained"
               onClick={() => {
                 setModalOpenState(true);
+                disableScrolling();
               }}
             >
               Create new list

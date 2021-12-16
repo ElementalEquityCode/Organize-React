@@ -390,6 +390,14 @@ class DashboardContainer extends React.Component {
   }
 }
 
+const disableScrolling = () => {
+  document.body.style.overflowY = 'hidden';
+};
+
+const enableScrolling = () => {
+  document.body.style.overflowY = '';
+};
+
 const tabs = [
   {
     label: "Tasks",
@@ -460,11 +468,13 @@ const Dashboard = (props) => {
 
   const handleCloseModal = () => {
     setModalOpenState(false);
+    enableScrolling();
   };
 
   const handleAddItem = (itemName, dueDate) => {
     action(itemName, dueDate);
     setModalOpenState(false);
+    enableScrolling();
   };
 
   const queryRef = useRef(null);
@@ -540,6 +550,7 @@ const Dashboard = (props) => {
                 <Button
                   onClick={() => {
                     setModalOpenState(true);
+                    disableScrolling();
                   }}
                   startIcon={<PlusIcon fontSize="small" />}
                   variant="contained"
