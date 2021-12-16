@@ -64,7 +64,7 @@ class DashboardContainer extends React.Component {
     this.fetchUserDataFromFirebase();
 
     Router.events.on("routeChangeComplete", () => {
-      const param = Router.query.id;
+      const param = Router.query.list_id;
 
       if (param) {
         const { toDoItemLists } = this.state;
@@ -146,7 +146,30 @@ class DashboardContainer extends React.Component {
             const { toDoItemLists } = this.state;
 
             if (toDoItemLists) {
-              Router.push(`/dashboard?id=${toDoItemLists[0].path.id}`);
+              const query = Router.query.list_id;
+
+              if (query) {
+                let wasListFound = false;
+
+                for (
+                  let listIndex = 0;
+                  listIndex < toDoItemLists.length;
+                  listIndex++
+                ) {
+                  if (toDoItemLists[listIndex].path.id === query) {
+                    wasListFound = true;
+                    this.setState({
+                      currentlyViewedList: toDoItemLists[listIndex],
+                    });
+                    break;
+                  }
+                }
+                if (!wasListFound) {
+                  Router.push(`/dashboard?list_id=${toDoItemLists[0].path.id}`);
+                }
+              } else {
+                Router.push(`/dashboard?list_id=${toDoItemLists[0].path.id}`);
+              }
             }
           }
         );
@@ -177,33 +200,65 @@ class DashboardContainer extends React.Component {
     });
   };
 
-  handleCompletionStatusChanged = (toDoItem) => {
+  handleCompletionStatusChanged = (toDoItem, otherList) => {
     setTimeout(() => {
-      const { currentlyViewedList } = this.state;
+      if (!otherList) {
+        const { currentlyViewedList } = this.state;
 
-      let list = toDoItem.isCompleted
-        ? currentlyViewedList.toDoItems
-        : currentlyViewedList.completedToDoItems;
+        let list = toDoItem.isCompleted
+          ? currentlyViewedList.toDoItems
+          : currentlyViewedList.completedToDoItems;
 
-      for (
-        let toDoItemIndex = 0;
-        toDoItemIndex < list.length;
-        toDoItemIndex++
-      ) {
-        if (toDoItem.path === list[toDoItemIndex].path) {
-          list.splice(toDoItemIndex, 1);
-          if (toDoItem.isCompleted) {
-            currentlyViewedList.completedToDoItems.push(toDoItem);
-          } else {
-            currentlyViewedList.toDoItems.push(toDoItem);
+        for (
+          let toDoItemIndex = 0;
+          toDoItemIndex < list.length;
+          toDoItemIndex++
+        ) {
+          if (toDoItem.path === list[toDoItemIndex].path) {
+            list.splice(toDoItemIndex, 1);
+            if (toDoItem.isCompleted) {
+              currentlyViewedList.completedToDoItems.push(toDoItem);
+            } else {
+              currentlyViewedList.toDoItems.push(toDoItem);
+            }
+            break;
           }
-          break;
         }
-      }
+        this.setState({
+          currentlyViewedList: { ...currentlyViewedList },
+        });
+      } else {
+        const { toDoItemLists } = this.state;
 
-      this.setState({
-        currentlyViewedList: { ...currentlyViewedList },
-      });
+        for (let listIndex = 0; listIndex < toDoItemLists.length; listIndex++) {
+          if (toDoItemLists[listIndex].path.id === otherList) {
+            let list = toDoItem.isCompleted
+              ? toDoItemLists[listIndex].toDoItems
+              : toDoItemLists[listIndex].completedToDoItems;
+
+            for (
+              let toDoItemIndex = 0;
+              toDoItemIndex < list.length;
+              toDoItemIndex++
+            ) {
+              if (toDoItem.path === list[toDoItemIndex].path) {
+                list.splice(toDoItemIndex, 1);
+                if (toDoItem.isCompleted) {
+                  toDoItemLists[listIndex].completedToDoItems.push(toDoItem);
+                } else {
+                  toDoItemLists[listIndex].toDoItems.push(toDoItem);
+                }
+                break;
+              }
+            }
+            break;
+          }
+        }
+
+        this.setState({
+          toDoItemLists: [...toDoItemLists],
+        });
+      }
     }, 250);
   };
 
@@ -239,7 +294,7 @@ class DashboardContainer extends React.Component {
           list_name: listName,
         });
 
-        Router.push(`/dashboard?id=${listUUID}`, undefined, {
+        Router.push(`/dashboard?list_id=${listUUID}`, undefined, {
           shallow: true,
         });
       }
@@ -288,6 +343,7 @@ class DashboardContainer extends React.Component {
   };
 
   handleRenameToDoItemList = async (withName, id) => {
+    console.log(withName, id);
     const { toDoItemLists } = this.state;
     const toDoItemListsCopy = [...toDoItemLists];
 
@@ -320,6 +376,7 @@ class DashboardContainer extends React.Component {
   };
 
   handleDeleteToDoItemList = async (id) => {
+    console.log(id);
     const { toDoItemLists } = this.state;
     const toDoItemListsCopy = [...toDoItemLists];
 
@@ -343,9 +400,13 @@ class DashboardContainer extends React.Component {
       () => {
         const { toDoItemLists } = this.state;
         if (toDoItemLists.length > 0) {
-          Router.push(`/dashboard?id=${toDoItemLists[0].path.id}`, undefined, {
-            shallow: true,
-          });
+          Router.push(
+            `/dashboard?list_id=${toDoItemLists[0].path.id}`,
+            undefined,
+            {
+              shallow: true,
+            }
+          );
         } else {
           Router.push("/dashboard", undefined, {
             shallow: true,
@@ -361,7 +422,7 @@ class DashboardContainer extends React.Component {
     return (
       <>
         <Head>
-          <title>Organize - Dashboard</title>
+          <title>Organyze - Dashboard</title>
         </Head>
         <main>
           <ToDoItemsListContext.Provider
@@ -391,11 +452,11 @@ class DashboardContainer extends React.Component {
 }
 
 const disableScrolling = () => {
-  document.body.style.overflowY = 'hidden';
+  document.body.style.overflowY = "hidden";
 };
 
 const enableScrolling = () => {
-  document.body.style.overflowY = '';
+  document.body.style.overflowY = "";
 };
 
 const tabs = [

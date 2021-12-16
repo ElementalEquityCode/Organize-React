@@ -15,7 +15,7 @@ import {
 import { styled } from "@mui/material/styles";
 import { Menu as MenuIcon } from "../../icons/menu";
 import { AccountPopover } from "./account-popover";
-import { ContentSearchDialog } from "./content-search-dialog";
+import { SearchForToDoItemModal } from "../widgets/modals/search-for-to-do-item-modal/search-for-to-do-item-modal";
 import { RenameToDoItemListModal } from "../widgets/modals/rename-to-do-item-modal/rename-to-do-item-modal";
 import { DeleteToDoItemListModal } from "../widgets/modals/delete-to-do-item-modal/delete-to-do-item-list-modal";
 import { Trash as TrashIcon } from "../../icons/trash";
@@ -29,11 +29,11 @@ const auth = getAuth(FirebaseApp);
 const storage = getStorage(FirebaseApp);
 
 const disableScrolling = () => {
-  document.body.style.overflowY = 'hidden';
+  document.body.style.overflowY = "hidden";
 };
 
 const enableScrolling = () => {
-  document.body.style.overflowY = '';
+  document.body.style.overflowY = "";
 };
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
@@ -69,10 +69,12 @@ const ContentSearchButton = () => {
           <SearchIcon fontSize="small" />
         </IconButton>
       </Tooltip>
-      <ContentSearchDialog
-        onClose={handleCloseSearchDialog}
-        open={openDialog}
-      />
+      {openDialog ? (
+        <SearchForToDoItemModal
+          onClose={handleCloseSearchDialog}
+          open={openDialog}
+        />
+      ) : null}
     </>
   );
 };
@@ -91,7 +93,7 @@ const RenameListButton = () => {
 
   const handleRenameToDoItemList = (withName) => {
     setModalOpenState(false);
-    action(withName, router.query.id);
+    action(withName, router.query.list_id);
     enableScrolling();
   };
 
@@ -133,7 +135,7 @@ const DeleteToDoItemListButton = () => {
 
   const handleDeleteToDoItemList = () => {
     setModalOpenState(false);
-    action(router.query.id);
+    action(router.query.list_id);
     enableScrolling();
   };
 

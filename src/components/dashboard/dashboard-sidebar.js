@@ -31,7 +31,7 @@ const getSections = (toDoItemLists) => {
     sections.push({
       title: toDoItemList.name,
       id: toDoItemList.path.id,
-      path: `/dashboard?id=${toDoItemList.path.id}`,
+      path: `/dashboard?list_id=${toDoItemList.path.id}`,
       icon: <FolderIcon fontSize="small" />,
     });
   });

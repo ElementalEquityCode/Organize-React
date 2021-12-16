@@ -30,7 +30,7 @@ const ResetPassword = () => {
   return (
     <>
       <Head>
-        <title>Reset Password | Organize</title>
+        <title>Reset Password | Organyze</title>
       </Head>
       <Box
         component="main"

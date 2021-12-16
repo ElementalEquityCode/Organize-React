@@ -39,7 +39,7 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>Login | Organize</title>
+        <title>Login | Organyze</title>
       </Head>
       <Box
         component="main"

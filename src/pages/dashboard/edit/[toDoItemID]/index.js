@@ -16,7 +16,7 @@ class EditToDoItemLayout extends React.Component {
     return (
       <>
         <Head>
-          <title>Organize - Edit To Do Item</title>
+          <title>Edit To Do Item | Organyze</title>
         </Head>
         <main>
           <DashboardNavbar fullSizeAlways />
@@ -29,6 +29,7 @@ class EditToDoItemLayout extends React.Component {
 
 const ToDoItemEdit = () => {
   const router = useRouter();
+  const listId = router.query.list_id;
   const [customer, setCustomer] = useState(null);
 
   return (
@@ -44,7 +45,7 @@ const ToDoItemEdit = () => {
       >
         <Container maxWidth="xlg">
           <Box sx={{ mb: 4 }}>
-            <NextLink href="/dashboard" passHref>
+            <NextLink href={`/dashboard?list_id=${listId}`} passHref>
               <Link
                 color="textPrimary"
                 component="a"

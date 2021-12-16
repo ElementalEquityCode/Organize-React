@@ -36,10 +36,11 @@ export const ToDoItemEditForm = (props) => {
   const [itemDueDateErrorState, setItemDueDateErrorState] = useState(false);
 
   const router = useRouter();
+  const listId = router.query.list_id;
   const { ...other } = props;
 
   useEffect(() => {
-    if (auth.currentUser) {
+    if (auth.currentUser && router.query.list_id && router.query.toDoItemID) {
       getDoc(
         doc(
           firestore,
@@ -57,9 +58,11 @@ export const ToDoItemEditForm = (props) => {
             setItemDueDate(new Date(data.data().due_date.seconds * 1000));
           }
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
+          router.push('/dashboard');
         });
+    } else {
+      router.push('/dashboard');
     }
   }, []);
 
@@ -67,7 +70,6 @@ export const ToDoItemEditForm = (props) => {
     event.preventDefault();
 
     if (itemName.trim().length !== 0 && !itemDueDateErrorState) {
-      console.log('here');
       updateDoc(
         doc(
           firestore,
@@ -84,7 +86,7 @@ export const ToDoItemEditForm = (props) => {
         }
       )
         .then(() => {
-          router.push("/dashboard");
+          router.push(`/dashboard?list_id=${listId}`);
         })
         .catch((error) => {
           console.log(error);
@@ -109,7 +111,7 @@ export const ToDoItemEditForm = (props) => {
       }
     )
       .then(() => {
-        router.push("/dashboard");
+        router.push(`/dashboard?list_id=${listId}`);
       })
       .catch((error) => {
         console.log(error);
@@ -181,7 +183,7 @@ export const ToDoItemEditForm = (props) => {
           <Button type="submit" sx={{ m: 1 }} variant="contained">
             Update
           </Button>
-          <NextLink href="/dashboard" passHref>
+          <NextLink href={`/dashboard?list_id=${listId}`} passHref>
             <Button
               component="a"
               sx={{

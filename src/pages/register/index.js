@@ -30,7 +30,7 @@ const Register = () => {
   return (
     <>
       <Head>
-        <title>Create Account | Organize</title>
+        <title>Create Account | Organyze</title>
       </Head>
       <Box
         component="main"
