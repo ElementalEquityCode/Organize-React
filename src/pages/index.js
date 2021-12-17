@@ -83,7 +83,7 @@ const Login = () => {
                 justifyContent: "center",
               }}
             >
-              <Typography variant="h4">Welcome to Organize</Typography>
+              <Typography align="center" variant="h4">Welcome to Organyze</Typography>
               <Typography color="textSecondary" sx={{ mt: 2 }} variant="body2">
                 The Minimalist To Do List
               </Typography>

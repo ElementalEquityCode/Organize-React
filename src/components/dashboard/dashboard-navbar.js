@@ -28,14 +28,6 @@ import ToDoItemListContext from "../../contexts/to-do-item-lists-context";
 const auth = getAuth(FirebaseApp);
 const storage = getStorage(FirebaseApp);
 
-const disableScrolling = () => {
-  document.body.style.overflowY = "hidden";
-};
-
-const enableScrolling = () => {
-  document.body.style.overflowY = "";
-};
-
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   ...(theme.palette.mode === "light"
@@ -88,13 +80,11 @@ const RenameListButton = () => {
 
   const handleCloseModal = () => {
     setModalOpenState(false);
-    enableScrolling();
   };
 
   const handleRenameToDoItemList = (withName) => {
     setModalOpenState(false);
     action(withName, router.query.list_id);
-    enableScrolling();
   };
 
   return (
@@ -103,7 +93,6 @@ const RenameListButton = () => {
         <IconButton
           onClick={() => {
             setModalOpenState(true);
-            disableScrolling();
           }}
           sx={{ ml: 1 }}
           ref={anchorRef}
@@ -130,13 +119,11 @@ const DeleteToDoItemListButton = () => {
 
   const handleCloseModal = () => {
     setModalOpenState(false);
-    enableScrolling();
   };
 
   const handleDeleteToDoItemList = () => {
     setModalOpenState(false);
     action(router.query.list_id);
-    enableScrolling();
   };
 
   return (
@@ -145,7 +132,6 @@ const DeleteToDoItemListButton = () => {
         <IconButton
           onClick={() => {
             setModalOpenState(true);
-            disableScrolling();
           }}
           ref={anchorRef}
           sx={{ ml: 1 }}
@@ -215,6 +201,7 @@ const AccountButton = () => {
           sx={{
             height: 40,
             width: 40,
+            zIndex: -1,
           }}
           src={user.avatar}
         >

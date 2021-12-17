@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import styles from "./Checkbox.module.css";
+import styles from "./checkbox.module.css";
 
 const Checkbox = (props) => {
   const { onCheckboxClicked } = props;

@@ -30,8 +30,8 @@ import { Search as SearchIcon } from "../../icons/search";
 import { AddToDoItemModal } from "../../components/widgets/modals/add-to-do-item-modal/add-to-do-item-modal";
 import { DashboardNavbar } from "../../components/dashboard/dashboard-navbar";
 import { DashboardSidebar } from "../../components/dashboard/dashboard-sidebar";
-import ToDoItem from "../../Objects/ToDoItem";
-import ToDoItemList from "../../Objects/ToDoItemList";
+import ToDoItem from "../../objects/ToDoItem";
+import ToDoItemList from "../../objects/ToDoItemList";
 import ToDoItemsListContext from "../../contexts/to-do-item-lists-context";
 import FirebaseApp from "../../Firebase";
 
@@ -451,14 +451,6 @@ class DashboardContainer extends React.Component {
   }
 }
 
-const disableScrolling = () => {
-  document.body.style.overflowY = "hidden";
-};
-
-const enableScrolling = () => {
-  document.body.style.overflowY = "";
-};
-
 const tabs = [
   {
     label: "Tasks",
@@ -529,13 +521,11 @@ const Dashboard = (props) => {
 
   const handleCloseModal = () => {
     setModalOpenState(false);
-    enableScrolling();
   };
 
   const handleAddItem = (itemName, dueDate) => {
     action(itemName, dueDate);
     setModalOpenState(false);
-    enableScrolling();
   };
 
   const queryRef = useRef(null);
@@ -611,7 +601,6 @@ const Dashboard = (props) => {
                 <Button
                   onClick={() => {
                     setModalOpenState(true);
-                    disableScrolling();
                   }}
                   startIcon={<PlusIcon fontSize="small" />}
                   variant="contained"

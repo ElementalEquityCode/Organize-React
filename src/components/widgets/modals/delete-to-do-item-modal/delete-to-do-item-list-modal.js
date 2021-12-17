@@ -5,30 +5,33 @@ import {
   Box,
   Button,
   Container,
+  Dialog,
   Paper,
   Typography,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import WarningIcon from "@mui/icons-material/WarningOutlined";
-import styles from "./delete-to-do-item-list-modal.module.css";
 
 export const DeleteToDoItemListModal = (props) => {
   const boxRef = useRef(null);
   const { onCancel, onDelete } = props;
 
   return (
-    <div
+    <Dialog
+      fullWidth
+      maxWidth="sm"
+      onClose={onCancel}
+      open={true}
       onClick={(event) => {
         if (event.target === boxRef.current) {
           onCancel();
         }
       }}
-      className={styles.visible}
     >
+      {" "}
       <Box
         ref={boxRef}
         sx={{
-          backgroundColor: "background.modal",
           minHeight: "100%",
           p: 3,
           position: "fixed",
@@ -102,7 +105,7 @@ export const DeleteToDoItemListModal = (props) => {
           </Paper>
         </Container>
       </Box>
-    </div>
+    </Dialog>
   );
 };
 

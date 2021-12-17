@@ -16,7 +16,7 @@ import { X as XIcon } from "../../../../icons/x";
 import PropTypes from "prop-types";
 import ToDoItemListsContext from "../../../../contexts/to-do-item-lists-context";
 import Checkbox from "../../inputs/checkbox/checkbox";
-import ToDoItemListContext from '../../../../contexts/to-do-item-lists-context';
+import ToDoItemListContext from "../../../../contexts/to-do-item-lists-context";
 
 const results = {};
 
@@ -77,7 +77,7 @@ export const SearchForToDoItemModal = (props) => {
   };
 
   return (
-    <Dialog fullWidth maxWidth="sm" onClose={onClose} open={open} {...other}>
+    <Dialog fullWidth maxWidth="sm" onClose={onClose} open={open}>
       <Box
         sx={{
           alignItems: "center",
@@ -151,7 +151,9 @@ export const SearchForToDoItemModal = (props) => {
                           <Checkbox
                             isChecked={result.isComplete}
                             onCheckboxClicked={(completionStatus) => {
-                              result.object.setCompletionStatus(completionStatus);
+                              result.object.setCompletionStatus(
+                                completionStatus
+                              );
                               action(result.object, result.path);
                             }}
                           />
@@ -165,7 +167,7 @@ export const SearchForToDoItemModal = (props) => {
                         <Typography
                           color="textSecondary"
                           variant="body2"
-                          sx={{ mt: 1 }}
+                          sx={{ mt: 1, wordBreak: "break-word" }}
                         >
                           {result.description}
                         </Typography>

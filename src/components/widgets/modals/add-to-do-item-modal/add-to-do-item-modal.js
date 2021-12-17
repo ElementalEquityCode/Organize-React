@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {
   Box,
   Button,
+  Dialog,
   IconButton,
   Input,
   Paper,
@@ -12,7 +13,6 @@ import {
 } from "@mui/material";
 import { DatePicker } from "@mui/lab";
 import { X as XIcon } from "../../../../icons/x";
-import styles from "./add-to-do-item-modal.module.css";
 
 export const AddToDoItemModal = (props) => {
   const [enteredName, setEnteredName] = useState("");
@@ -24,14 +24,18 @@ export const AddToDoItemModal = (props) => {
   const { onCancel, onAdd } = props;
 
   return (
-    <div
+    <Dialog
+      fullWidth
+      maxWidth="sm"
+      onClose={onCancel}
+      open={true}
       onClick={(event) => {
         if (event.target === boxRef.current) {
           onCancel();
         }
       }}
-      className={styles.visible}
     >
+      {" "}
       <Box
         onSubmit={(event) => {
           event.preventDefault();
@@ -42,7 +46,6 @@ export const AddToDoItemModal = (props) => {
         component="form"
         ref={boxRef}
         sx={{
-          backgroundColor: "background.modal",
           minHeight: "100%",
           p: 3,
           position: "fixed",
@@ -138,7 +141,7 @@ export const AddToDoItemModal = (props) => {
           </Box>
         </Paper>
       </Box>
-    </div>
+    </Dialog>
   );
   z;
 };

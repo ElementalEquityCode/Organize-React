@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Container,
+  Dialog,
   IconButton,
   InputAdornment,
   Paper,
@@ -11,7 +12,6 @@ import {
 } from "@mui/material";
 import { Search as SearchIcon } from "../../../../icons/search";
 import { X as XIcon } from "../../../../icons/x";
-import styles from "./rename-to-do-item-modal.module.css";
 
 export const RenameToDoItemListModal = (props) => {
   const [enteredValue, setEnteredValue] = useState("");
@@ -21,14 +21,11 @@ export const RenameToDoItemListModal = (props) => {
   const { onCancel, onRename } = props;
 
   return (
-    <div
-      onClick={(event) => {
-        if (event.target === boxRef.current) {
-          onCancel();
-        }
-      }}
-      className={styles.visible}
-    >
+    <Dialog fullWidth maxWidth="sm" onClose={onCancel} open={true} onClick={(event) => {
+      if (event.target === boxRef.current) {
+        onCancel();
+      }
+    }}>
       <Box
         onSubmit={(event) => {
           event.preventDefault();
@@ -39,7 +36,6 @@ export const RenameToDoItemListModal = (props) => {
         component="form"
         ref={boxRef}
         sx={{
-          backgroundColor: "background.modal",
           minHeight: "100%",
           p: 3,
           position: "fixed",
@@ -109,7 +105,7 @@ export const RenameToDoItemListModal = (props) => {
           </Paper>
         </Container>
       </Box>
-    </div>
+    </Dialog>
   );
 };
 
