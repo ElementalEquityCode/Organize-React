@@ -37,6 +37,22 @@ class CustomDocument extends Document {
             href="/favicon-16x16.png"
           />
           <meta name="theme-color" content="#111827" />
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=G-T7MP2PV6W5`}
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-T7MP2PV6W5', {
+              page_path: window.location.pathname,
+            });
+          `,
+            }}
+          />
         </Head>
         <body>
           <Main />

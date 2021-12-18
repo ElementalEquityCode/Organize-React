@@ -40,7 +40,6 @@ const App = (props) => {
               {({ settings }) => (
                 <ThemeProvider
                   theme={createTheme({
-                    direction: settings.direction,
                     responsiveFontSizes: settings.responsiveFontSizes,
                     mode: settings.theme,
                   })}
