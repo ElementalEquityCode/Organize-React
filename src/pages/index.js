@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import {
   Box,
+  Button,
   Card,
   Container,
   Divider,
@@ -119,6 +120,14 @@ const Login = () => {
           </Card>
         </Container>
       </Box>
+      <Button>
+        <Link
+          href="https://github.com/ElementalEquityCode/Organyze-React"
+          target="_blank"
+        >
+          Source Code
+        </Link>
+      </Button>
     </>
   );
 };
